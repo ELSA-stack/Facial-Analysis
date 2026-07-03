@@ -1,0 +1,7 @@
+/* CSS variables for shared colors and spacing. */
+:root {
+  --color-primary: #2563eb;
+  --color-accent: #14b8a6;
+  --color-bg: #f8fafc;
+  --color-text: #111827;
+}
