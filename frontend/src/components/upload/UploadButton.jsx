@@ -1,18 +1,22 @@
-// Button used for the final analysis action.
+import { motion } from 'framer-motion'
+
+// Button used for the final analysis action with a premium AI-inspired motion style.
 function UploadButton({ disabled = false, label = 'Analyze Face', onClick }) {
   return (
-    <button
+    <motion.button
       type="button"
       disabled={disabled}
       onClick={onClick}
-      className={`rounded-full px-6 py-3 text-sm font-semibold transition ${
+      whileHover={!disabled ? { scale: 1.03, y: -1 } : undefined}
+      whileTap={!disabled ? { scale: 0.97 } : undefined}
+      className={`rounded-full px-6 py-3 text-sm font-semibold shadow-lg transition ${
         disabled
-          ? 'cursor-not-allowed bg-slate-300 text-slate-500'
-          : 'bg-blue-600 text-white hover:bg-blue-500'
+          ? 'cursor-not-allowed bg-slate-300 text-slate-500 shadow-none'
+          : 'bg-gradient-to-r from-sky-500 via-cyan-400 to-fuchsia-500 text-white shadow-sky-500/20 hover:shadow-xl hover:shadow-sky-500/30'
       }`}
     >
       {label}
-    </button>
+    </motion.button>
   )
 }
 

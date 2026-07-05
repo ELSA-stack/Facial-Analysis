@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AIAnimation from '../components/loading/AIAnimation'
@@ -66,9 +67,17 @@ function Loading() {
       <div className="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
 
       <div className="relative mx-auto flex max-w-6xl flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-        <div className="max-w-2xl space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-2xl space-y-6"
+        >
           <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm text-cyan-200">
-            <span className="h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_12px_#22d3ee]" />
+            <motion.span
+              animate={{ scale: [1, 1.2, 1], opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 1.4, repeat: Infinity }}
+              className="h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_12px_#22d3ee]"
+            />
             AI analysis in progress
           </div>
 
@@ -82,15 +91,20 @@ function Loading() {
           <FactsTicker />
           <ProgressPanel progress={progress} status={currentStatus} />
           <LoadingChecklist />
-        </div>
+        </motion.div>
 
-        <div className="flex w-full max-w-xl flex-col items-center gap-5">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="flex w-full max-w-xl flex-col items-center gap-5"
+        >
           <AIAnimation />
           <div className="rounded-3xl border border-white/10 bg-slate-950/70 px-6 py-5 text-center backdrop-blur-xl">
             <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Estimated time</p>
             <p className="mt-2 text-4xl font-semibold text-cyan-300">{secondsLeft}s</p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   )
