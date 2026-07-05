@@ -2,9 +2,9 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import UploadCard from '../components/upload/UploadCard'
 import UploadButton from '../components/upload/UploadButton'
 import UploadProgress from '../components/upload/UploadProgress'
+import CameraCapture from '../components/upload/CameraCapture'
 import AnimatedBackground from '../components/ui/AnimatedBackground'
 import MouseGlow from '../components/ui/MouseGlow'
 import RevealAnimation from '../components/ui/RevealAnimation'
@@ -63,10 +63,14 @@ function Upload() {
       <AnimatedBackground className="rounded-[2rem] border border-cyan-400/20 bg-slate-950/60 p-4 shadow-[0_20px_80px_-24px_rgba(34,211,238,0.25)] backdrop-blur-md sm:p-6 lg:p-8">
         <RevealAnimation>
           <div className="relative z-10 mb-8 max-w-3xl">
-            <h1 className="text-3xl font-semibold tracking-tight text-slate-800">Upload facial images</h1>
-            <p className="mt-2 text-slate-600">
-              Add a front, left-profile and right-profile image to prepare your facial analysis request.
-            </p>
+            <div className="rounded-[30px] border border-white/10 bg-[rgba(15,23,42,0.65)] p-10 shadow-[0_0_80px_rgba(56,189,248,0.15)] backdrop-blur-[20px]">
+              <h1 className="text-5xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_0_rgba(0,0,0,0.85)] [text-shadow:0_0_24px_rgba(56,189,248,0.55)]">
+                Upload facial images
+              </h1>
+              <p className="mt-3 text-lg text-slate-300">
+                Capture a front, left-profile and right-profile photo to prepare your facial analysis request.
+              </p>
+            </div>
           </div>
         </RevealAnimation>
 
@@ -78,16 +82,42 @@ function Upload() {
 
         <div className="relative z-10 mt-6 grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
           {[
-            { key: 'front', title: 'Front Face', description: 'Upload a clear front-facing photo.' },
-            { key: 'left', title: 'Left Profile', description: 'Upload a clear left-side profile photo.' },
-            { key: 'right', title: 'Right Profile', description: 'Upload a clear right-side profile photo.' },
+            {
+              key: 'front',
+              title: 'Front Face',
+              description: 'Capture a clear front-facing photo.',
+              instruction: 'Look straight into the camera.',
+              helperText: 'Keep your face inside the guide. Good lighting improves accuracy.',
+              successText: '✓ Front Face Captured',
+            },
+            {
+              key: 'left',
+              title: 'Left Profile',
+              description: 'Turn your face slightly left for a clean side profile.',
+              instruction: 'Turn your face slightly left.',
+              helperText: 'Look directly at the camera and keep your profile inside the guide.',
+              successText: '✓ Left Profile Captured',
+            },
+            {
+              key: 'right',
+              title: 'Right Profile',
+              description: 'Turn your face slightly right for the final angle.',
+              instruction: 'Turn your face slightly right.',
+              helperText: 'Remove glasses if possible and keep the lighting soft and even.',
+              successText: '✓ Right Profile Captured',
+            },
           ].map((item, index) => (
             <RevealAnimation key={item.key} delay={0.1 + index * 0.07}>
-              <UploadCard
+              <CameraCapture
                 title={item.title}
                 description={item.description}
-                image={images[item.key]}
-                onImageChange={(file) => handleImageChange(item.key, file)}
+                instruction={item.instruction}
+                helperText={item.helperText}
+                successText={item.successText}
+                capturedImage={images[item.key]}
+                onCapture={(file) => handleImageChange(item.key, file)}
+                onRetake={() => handleImageChange(item.key, null)}
+                isActive={Boolean(images[item.key])}
               />
             </RevealAnimation>
           ))}
@@ -102,7 +132,7 @@ function Upload() {
             <div>
               <p className="font-medium text-slate-800">Ready to analyze?</p>
               <p className="text-sm text-slate-600">
-                {allSelected ? 'All three images are selected and ready.' : 'Please upload all three images to enable analysis.'}
+                {allSelected ? 'All three images are captured and ready.' : 'Capture all three images to enable analysis.'}
               </p>
             </div>
 
