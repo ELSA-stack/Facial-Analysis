@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import api from '../services/api'
 
 import UploadButton from '../components/upload/UploadButton'
 import UploadProgress from '../components/upload/UploadProgress'
@@ -35,10 +36,41 @@ function Upload() {
   const uploadedCount = Object.values(images).filter(Boolean).length
   const allSelected = uploadedCount === 3
 
-  const handleAnalyze = () => {
-    if (!allSelected) return
-    navigate('/loading')
+ const handleAnalyze = async () => {
+  if (!allSelected) return
+
+  try {
+    const formData = new FormData()
+
+    formData.append("front_image", images.front)
+    formData.append("left_image", images.left)
+    formData.append("right_image", images.right)
+
+    const response = await api.post("/analyze", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+
+    console.log("Backend Response:", response.data)
+
+    navigate("/result", {
+      state: response.data,
+    })
+  
+  } catch (error) {
+  console.error("Analysis failed:", error)
+
+  if (error.response) {
+    console.log("Status:", error.response.status)
+    console.log("Response:", error.response.data)
+
+    alert(JSON.stringify(error.response.data, null, 2))
+  } else {
+    alert(error.message)
   }
+}
+ }
 
   useEffect(() => {
     if (!hovered) {

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import AnalysisCard from '../components/result/AnalysisCard'
 import MeasurementTable from '../components/result/MeasurementTable'
 import ResultHeader from '../components/result/ResultHeader'
@@ -8,16 +8,10 @@ import SuggestionList from '../components/result/SuggestionList'
 import RevealAnimation from '../components/ui/RevealAnimation'
 
 // This page organizes the report sections and keeps the UI ready for real backend data.
-function Result({
-  overallScore = null,
-  faceShape = null,
-  symmetry = null,
-  confidence = null,
-  strengths = [],
-  suggestions = [],
-  measurements = [],
-}) {
+function Result() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const data = location.state || {}
 
   // A small formatter keeps the UI consistent whether the backend sends numbers or strings.
   const formatMetricValue = (value) => {
@@ -32,10 +26,19 @@ function Result({
     return String(value)
   }
 
-  const summaryOverall = formatMetricValue(overallScore)
-  const summaryFaceShape = formatMetricValue(faceShape)
-  const summarySymmetry = formatMetricValue(symmetry)
-  const summaryConfidence = formatMetricValue(confidence)
+  const summaryOverall = formatMetricValue(data.overall_score)
+const summaryFaceShape = formatMetricValue(data.face_shape)
+const summarySymmetry = formatMetricValue(data.scores?.symmetry)
+const summaryConfidence = formatMetricValue(data.confidence)
+
+const strengths = data.strengths || []
+const suggestions = data.improvements || []
+const measurements = Object.entries(data.measurements || {}).map(
+  ([label, value]) => ({
+    label,
+    value,
+  })
+)
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.10),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(236,72,153,0.08),_transparent_30%),linear-gradient(135deg,_#f8fbff_0%,_#ffffff_55%,_#f8fafc_100%)] px-4 py-8 sm:px-6 lg:px-8">

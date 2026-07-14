@@ -15,7 +15,7 @@ function MeasurementTable({ measurements = [] }) {
             <tr>
               <th className="px-4 py-3 font-semibold text-slate-700">Metric</th>
               <th className="px-4 py-3 font-semibold text-slate-700">Value</th>
-              <th className="px-4 py-3 font-semibold text-slate-700">Note</th>
+              <th className="px-4 py-3 font-semibold text-slate-700">Status</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-200 bg-white">
@@ -24,7 +24,7 @@ function MeasurementTable({ measurements = [] }) {
                 <tr key={`${item.label || 'metric'}-${index}`} className="transition hover:bg-slate-50">
                   <td className="px-4 py-3 text-slate-700">{item.label || '—'}</td>
                   <td className="px-4 py-3 text-slate-700">{item.value ?? '—'}</td>
-                  <td className="px-4 py-3 text-slate-500">{item.note || 'Pending'}</td>
+                  <td className="px-4 py-3 text-green-600">Completed</td>
                 </tr>
               ))
             ) : (
