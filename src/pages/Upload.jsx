@@ -25,13 +25,11 @@ function Upload() {
   const smoothGlowY = useSpring(glowY, { stiffness: 80, damping: 24, mass: 0.4 })
 
   const handleImageChange = (key, file) => {
-    if (!file) return
-
-    setImages((prev) => ({
-      ...prev,
-      [key]: file,
-    }))
-  }
+  setImages((prev) => ({
+    ...prev,
+    [key]: file,
+  }))
+}
 
   const uploadedCount = Object.values(images).filter(Boolean).length
   const allSelected = uploadedCount === 3
