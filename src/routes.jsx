@@ -5,6 +5,7 @@ import Upload from './pages/Upload'
 import Loading from './pages/Loading'
 import Result from './pages/Result'
 import About from './pages/About'
+import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 
 // Router configuration for the app pages.
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
+    { path: 'login', element: <Login /> },
       { path: 'upload', element: <Upload /> },
       { path: 'loading', element: <Loading /> },
       { path: 'result', element: <Result /> },

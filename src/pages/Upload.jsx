@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useUser } from '../context/UserContext'
 import api from '../services/api'
 
 import UploadButton from '../components/upload/UploadButton'
@@ -9,9 +10,11 @@ import CameraCapture from '../components/upload/CameraCapture'
 import AnimatedBackground from '../components/ui/AnimatedBackground'
 import MouseGlow from '../components/ui/MouseGlow'
 import RevealAnimation from '../components/ui/RevealAnimation'
+import HeroSection from '../components/HeroSection'
 
 function Upload() {
   const navigate = useNavigate()
+  const { user } = useUser()
 
   const [images, setImages] = useState({
     front: null,
@@ -92,16 +95,7 @@ function Upload() {
       >
       <AnimatedBackground className="rounded-[2rem] border border-cyan-400/20 bg-slate-950/60 p-4 shadow-[0_20px_80px_-24px_rgba(34,211,238,0.25)] backdrop-blur-md sm:p-6 lg:p-8">
         <RevealAnimation>
-          <div className="relative z-10 mb-8 max-w-3xl">
-            <div className="rounded-[30px] border border-white/10 bg-[rgba(15,23,42,0.65)] p-10 shadow-[0_0_80px_rgba(56,189,248,0.15)] backdrop-blur-[20px]">
-              <h1 className="text-5xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_0_rgba(0,0,0,0.85)] [text-shadow:0_0_24px_rgba(56,189,248,0.55)]">
-                Upload facial images
-              </h1>
-              <p className="mt-3 text-lg text-slate-300">
-                Capture a front, left-profile and right-profile photo to prepare your facial analysis request.
-              </p>
-            </div>
-          </div>
+          <HeroSection />
         </RevealAnimation>
 
         <RevealAnimation delay={0.08}>
