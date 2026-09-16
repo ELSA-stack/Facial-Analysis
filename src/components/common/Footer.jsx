@@ -1,20 +1,14 @@
-// Reusable footer component.
-function Footer() {
+export default function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-white py-8">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-        <p>© 2026 Face Insight AI. Built for demo and educational use.</p>
-        <div className="flex gap-4">
-          <a href="/about" className="hover:text-slate-900">
-            About
-          </a>
-          <a href="/upload" className="hover:text-slate-900">
-            Upload
-          </a>
+    <footer className="border-t border-gray-900 bg-gray-950/60 py-8 text-center text-xs text-gray-500">
+      <div className="mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          Facial Analysis AI — Real-time Client-side Vision Studio
+        </div>
+        <div className="text-gray-600">
+          Based on the <a href="https://github.com/gazijarin/itsgiving" target="_blank" rel="noreferrer" className="underline hover:text-emerald-400">It's Giving</a> reference project.
         </div>
       </div>
     </footer>
   )
 }
-
-export default Footer

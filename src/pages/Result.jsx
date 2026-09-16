@@ -1,11 +1,6 @@
-import { useLocation } from 'react-router-dom'
-import ResultPage from '../components/ResultPage'
-
+// Result page placeholder.
 function Result() {
-  const location = useLocation()
-  const data = location.state || {}
-
-  return <ResultPage data={data} />
+  return <div className="p-8 text-center text-xl">Result Page</div>
 }
 
 export default Result

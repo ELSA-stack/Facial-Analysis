@@ -1,7 +1,6 @@
-import LandingPage from '../components/LandingPage'
-
+// Home page placeholder.
 function Home() {
-  return <LandingPage />
+  return <div className="p-8 text-center text-xl">Home Page</div>
 }
 
 export default Home

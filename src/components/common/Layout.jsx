@@ -1,18 +1,12 @@
 import Navbar from './Navbar'
 import Footer from './Footer'
-import AnimatedBackground from '../ui/AnimatedBackground'
 
-// Shared page layout with navbar and footer, wrapped in a premium dark animated scene.
-function Layout({ children }) {
+export default function Layout({ children }) {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#020617] text-slate-100">
-      <AnimatedBackground className="min-h-screen">
-        <Navbar />
-        <main className="relative z-10 mx-auto max-w-6xl px-4 py-4 sm:px-6 lg:px-8">{children}</main>
-        <Footer />
-      </AnimatedBackground>
+    <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
+      <Navbar />
+      <main className="mx-auto max-w-6xl w-full p-4 flex-1">{children}</main>
+      <Footer />
     </div>
   )
 }
-
-export default Layout
